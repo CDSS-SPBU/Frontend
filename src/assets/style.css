@@ -1,0 +1,109 @@
+html,
+body,
+#app {
+  margin: 0px;
+  height: 100%;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  background-color: white;
+  content-visibility: auto;
+}
+
+#btnbox {
+  border-bottom: solid gray 1px;
+  display: flex;
+  justify-content: center;
+  height: 35px;
+}
+#btnbox button {
+  border: none;
+  padding: 10px 15px;
+  background-color: white;
+  overflow: hidden;
+}
+#btnbox button:hover {
+  background-color: lightgray;
+}
+
+#msg-feed {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  max-height: calc(100% - 86px);
+  overflow-y: auto;
+}
+.msg-bot,
+.msg-usr {
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 60%;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.msg-bot {
+  background-color: lightgray;
+  margin-left: 10px;
+  margin-right: auto;
+}
+.msg-usr {
+  background-color: lightgreen;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+#inp-qry {
+  position: fixed;
+  bottom: 0px;
+  left: 10px;
+  margin: 0px;
+  height: 50px;
+  width: calc(100% - 45px);
+  resize: none;
+  box-sizing: border-box;
+  border-width: 1px;
+  overflow-y: auto;
+}
+#inp-btn {
+  position: fixed;
+  bottom: 14px;
+  right: 10px;
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  height: 22px;
+  width: 20px;
+  background-color: white;
+}
+#inp-btn > svg {
+  height: 22px;
+  width: 20px;
+}
+
+@media screen and (min-width: 750px) {
+  body {
+    background-color: lightgray;
+  }
+  #app {
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+  }
+
+  .msg-bot,
+  .msg-usr {
+    max-width: 500px;
+  }
+
+  #inp-qry {
+    width: 705px;
+  }
+}
+@media screen and (max-width: 360px) {
+  #btnbox button {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
