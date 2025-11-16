@@ -1,8 +1,12 @@
-html,
-body,
-#app {
+* {
   margin: 0px;
+}
+html {
   height: 100%;
+  width: 100%;
+}
+.inheight {
+  height: inherit;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,21 +31,22 @@ body,
   background-color: lightgray;
 }
 
-#msg-feed {
+.feed {
   list-style-type: none;
   padding: 0px;
-  margin: 0px;
-  max-height: calc(100% - 86px);
   overflow-y: auto;
+}
+#msg-feed {
+  height: calc(100% - 90px);
 }
 .msg-bot,
 .msg-usr {
-  margin-top: 10px;
-  border-radius: 10px;
-  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 8px;
   max-width: 60%;
   width: fit-content;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .msg-bot {
   background-color: lightgray;
@@ -54,32 +59,85 @@ body,
   margin-right: 10px;
 }
 
-#inp-qry {
-  position: fixed;
-  bottom: 0px;
-  left: 10px;
-  margin: 0px;
-  height: 50px;
-  width: calc(100% - 45px);
+textarea {
   resize: none;
   box-sizing: border-box;
   border-width: 1px;
   overflow-y: auto;
 }
-#inp-btn {
+#inp-qry {
+  position: fixed;
+  bottom: 0px;
+  left: 10px;
+  height: 50px;
+  width: calc(100% - 45px);
+}
+#qry-btn {
   position: fixed;
   bottom: 14px;
   right: 10px;
-  margin: 0px;
   border: none;
   padding: 0px;
   height: 22px;
   width: 20px;
   background-color: white;
 }
-#inp-btn > svg {
-  height: 22px;
-  width: 20px;
+button > svg {
+  height: inherit;
+  width: inherit;
+}
+
+#search {
+  margin: 0px 5px;
+  height: 50px;
+  width: calc(100% - 40px);
+}
+#srch-btn {
+  position: fixed;
+  top: 36px;
+  right: 5px;
+  border: none;
+  padding: 0px;
+  height: 25px;
+  width: 25px;
+  background-color: white;
+}
+#srch-btn:hover {
+  background-color: lightgray;
+}
+
+#doc-feed {
+  max-height: calc(100% - 115px);
+  margin-bottom: 4px;
+}
+#doc-feed li {
+  padding: 5px 0px;
+  border-bottom: solid gray 1px;
+}
+#open-btn {
+  max-height: 50px;
+  width: calc(100% - 85px);
+  overflow-y: hidden;
+  border: none;
+  background: none;
+  text-align: left;
+}
+#open-btn:hover {
+  background-color: lightgray;
+}
+
+#pg-box {
+  display: flex;
+  justify-content: center;
+  height: 25px;
+}
+
+#addDoc input[type="text"],
+#addDoc input[type="file"] {
+  margin-bottom: 15px;
+}
+#addDoc input[type="text"] {
+  width: 90%;
 }
 
 @media screen and (min-width: 750px) {
@@ -90,15 +148,6 @@ body,
     margin-left: auto;
     margin-right: auto;
     width: 750px;
-  }
-
-  .msg-bot,
-  .msg-usr {
-    max-width: 500px;
-  }
-
-  #inp-qry {
-    width: 705px;
   }
 }
 @media screen and (max-width: 360px) {

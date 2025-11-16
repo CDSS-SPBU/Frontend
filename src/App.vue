@@ -1,38 +1,89 @@
-<template>
-  <div id="btnbox">
-    <button type="button" @click="goToChat">Чат</button>
-    <button type="button" @click="goToDoclist">Список документов</button>
-    <button type="button" @click="goToCreatedoc">Добавить документ</button>
-  </div>
-  <router-view />
-</template>
-
 <script>
+import DocList from "./components/DocList.vue";
+import CreateDoc from "./components/CreateDoc.vue";
+import ChatFiller from "./components/ChatFiller.vue";
+
 export default {
   name: "App",
+  components: {
+    DocList,
+    CreateDoc,
+    ChatFiller,
+  },
   data: function () {
     return {
       connection: null,
+      hist: [],
+      activeComp: "",
+      qry: null,
     };
   },
   methods: {
-    goToChat() {
-      this.$router.push({ name: "chat", params: { wbs: this.connection } });
+    onop() {
+      console.log("Подключение установлено.");
     },
-    goToDoclist() {
-      this.$router.push("/doclist");
+    recMessage(message) {
+      const data = JSON.parse(message.data);
+      if (data.type === "history") {
+        this.hist = data.messages;
+      } else if (data.type === "chat_message") {
+        this.hist.push({
+          role: data.role,
+          content: data.content,
+          timestamp: Date(),
+        });
+      }
     },
-    goToCreatedoc() {
-      this.$router.push("/createdoc");
+    sendMessage() {
+      if (this.qry) {
+        this.connection.send(
+          JSON.stringify({ type: "chat_message", query: this.qry })
+        );
+        this.hist.push({
+          role: "user",
+          content: this.qry,
+          timestamp: Date(),
+        });
+        this.qry = null;
+      }
     },
   },
   created: function () {
     console.log("Подключение...");
-    this.connection = new WebSocket("/ws/chat"); //   /ws/chat   ws://localhost:8080/api/v1/chat
-
-    this.connection.onopen = function () {
-      console.log("Подключение установлено.");
-    };
+    this.connection = new WebSocket("ws://localhost:8000/ws/chat");
+    this.connection.onopen = this.onop;
+    this.connection.onmessage = this.recMessage;
   },
 };
 </script>
+
+<template>
+  <div id="btnbox">
+    <button type="button" @click="activeComp = 'ChatFiller'">Чат</button>
+    <button type="button" @click="activeComp = 'DocList'">
+      Список документов
+    </button>
+    <button type="button" @click="activeComp = 'CreateDoc'">
+      Добавить документ
+    </button>
+  </div>
+  <component :is="activeComp"></component>
+  <div v-if="activeComp === 'ChatFiller'" class="inheight">
+    <ul class="feed" id="msg-feed">
+      <li v-for="msg in hist" :key="msg.timestamp">
+        <p v-if="msg.role === 'user'" class="msg-usr">{{ msg.content }}</p>
+        <p v-else-if="msg.role === 'bot'" class="msg-bot">{{ msg.content }}</p>
+      </li>
+    </ul>
+    <textarea
+      id="inp-qry"
+      placeholder="Введите запрос"
+      v-model="qry"
+    ></textarea>
+    <button id="qry-btn" type="button" @click="sendMessage">
+      <svg fill="lightgreen" view-box="0 0 20 22">
+        <path d="M0,0V22L19.05,11Z"></path>
+      </svg>
+    </button>
+  </div>
+</template>
