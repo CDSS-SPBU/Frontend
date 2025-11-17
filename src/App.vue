@@ -16,6 +16,7 @@ export default {
       hist: [],
       activeComp: "",
       qry: null,
+      defurl: "//localhost:8000",
     };
   },
   methods: {
@@ -50,7 +51,7 @@ export default {
   },
   created: function () {
     console.log("Подключение...");
-    this.connection = new WebSocket("ws://localhost:8000/ws/chat");
+    this.connection = new WebSocket("ws:" + this.defurl + "/ws/chat");
     this.connection.onopen = this.onop;
     this.connection.onmessage = this.recMessage;
   },
@@ -67,7 +68,7 @@ export default {
       Добавить документ
     </button>
   </div>
-  <component :is="activeComp"></component>
+  <component :is="activeComp" :du="defurl"></component>
   <div v-if="activeComp === 'ChatFiller'" class="inheight">
     <ul class="feed" id="msg-feed">
       <li v-for="msg in hist" :key="msg.timestamp">

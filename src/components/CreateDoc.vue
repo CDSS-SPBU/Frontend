@@ -1,6 +1,12 @@
 <script>
 export default {
   name: "CreateDoc",
+  props: {
+    du: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 <template>
@@ -8,7 +14,7 @@ export default {
     id="addDoc"
     method="post"
     enctype="multipart/form-data"
-    action="//localhost:8000/createdoc"
+    :action="du + '/createdoc'"
     target="_blank"
   >
     <label for="inp-id">ID:</label><br />

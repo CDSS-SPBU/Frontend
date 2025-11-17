@@ -28,25 +28,15 @@
 <script>
 export default {
   name: "DocList",
+  props: {
+    du: {
+      type: String,
+      required: true,
+    },
+  },
   data: function () {
     return {
-      dList: [
-        /*{ id_cr: "932_1", title: "Описторхоз у взрослых и детей" },
-        {
-          id_cr: "934_1",
-          title:
-            "Трансплантация почки, наличие трансплантированной почки, отмирание и отторжение трансплантата почки",
-        },
-        { id_cr: "930_1", title: "Эритемы" },
-        { id_cr: "77_3", title: "какое-то наименование" },
-        { id_cr: "554_1", title: "какое-то второе наименование" },
-        { id_cr: "877_3", title: "какое-то наименование номер три" },
-        { id_cr: "101_0", title: "какое-то четвёртое наименование" },
-        { id_cr: "874_3", title: "какое-то наименование номер пять" },
-        { id_cr: "181_0", title: "какое-то шестое наименование" },
-        { id_cr: "477_3", title: "какое-то наименование номер семь" },
-        { id_cr: "197_0", title: "какое-то восьмое наименование" },*/
-      ],
+      dList: [],
       inp: null,
       Page: 1,
       maxP: 1,
@@ -57,14 +47,13 @@ export default {
   },
   methods: {
     del(ind) {
-      const url = "//localhost:8000/doclist/" + this.dList[ind].id_cr;
+      const url = this.du + "/doclist/" + this.dList[ind].id_cr;
       fetch(url, {
         method: "DELETE",
       });
-      console.log(this.dList[ind].id_cr, " got deleted.");
       if (this.Page) {
         this.getpage();
-        if (this.Page >= this.maxP && this.Page > 1) {
+        if (this.Page > this.maxP && this.Page > 1) {
           this.prev();
         }
       } else {
@@ -81,7 +70,8 @@ export default {
     },
     async getpage() {
       const url =
-        "//localhost:8000/doclist/paginated?size=100&page=" +
+        this.du +
+        "/doclist/paginated?size=20&page=" +
         (this.Page - 1).toString();
       try {
         const response = await fetch(url);
@@ -96,7 +86,7 @@ export default {
       }
     },
     async opdoc(id) {
-      const url = "//localhost:8000/doclist/" + id;
+      const url = this.du + "/doclist/" + id;
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -109,7 +99,7 @@ export default {
     async searchDoc() {
       if (this.inp) {
         this.dList = [];
-        const url = "//localhost:8000/doclist/paginated?size=100&page=";
+        const url = this.du + "/doclist/paginated?size=100&page=";
         try {
           for (this.Page = 0; this.Page < this.maxP; ++this.Page) {
             const response = await fetch(url + this.Page.toString());
