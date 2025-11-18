@@ -1,0 +1,75 @@
+# -------------------------------
+# Dependency directories
+# -------------------------------
+node_modules/
+
+# -------------------------------
+# Production and build outputs
+# -------------------------------
+dist/
+out/
+build/
+public/build/
+
+# -------------------------------
+# Cache dirs
+# -------------------------------
+.cache/
+.tmp/
+
+# -------------------------------
+# Test output and coverage
+# -------------------------------
+coverage/
+reports/
+jest/
+
+# -------------------------------
+# Environment and config files
+# -------------------------------
+*.env*
+!.env.production
+*.local
+*.log
+
+# -------------------------------
+# Editor and IDE config
+# -------------------------------
+.vscode/
+.idea/
+*.swp
+
+# -------------------------------
+# Lockfiles (optional)
+# -------------------------------
+npm-debug.log*
+
+# -------------------------------
+# Git files
+# -------------------------------
+.git/
+.gitignore
+
+# -------------------------------
+# Docker-related files
+# -------------------------------
+Dockerfile
+.dockerignore
+# Default
+**/.classpath
+**/.project
+**/.settings
+**/.toolstarget
+**/.vs
+**/.next
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+**/charts
+**/docker-compose*
+**/compose.y*ml
+**/obj
+**/secrets.dev.yaml
+**/values.dev.yaml
+LICENSE
+README.md

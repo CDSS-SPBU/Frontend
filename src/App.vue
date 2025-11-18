@@ -16,7 +16,7 @@ export default {
       hist: [],
       activeComp: "",
       qry: null,
-      defurl: "//localhost:8000",
+      defurl: "//localhost:8002",
     };
   },
   methods: {
@@ -69,22 +69,20 @@ export default {
     </button>
   </div>
   <component :is="activeComp" :du="defurl"></component>
-  <div v-if="activeComp === 'ChatFiller'" class="inheight">
+  <div v-if="activeComp === 'ChatFiller'">
     <ul class="feed" id="msg-feed">
       <li v-for="msg in hist" :key="msg.timestamp">
         <p v-if="msg.role === 'user'" class="msg-usr">{{ msg.content }}</p>
         <p v-else-if="msg.role === 'bot'" class="msg-bot">{{ msg.content }}</p>
       </li>
     </ul>
-    <textarea
-      id="inp-qry"
-      placeholder="Введите запрос"
-      v-model="qry"
-    ></textarea>
-    <button id="qry-btn" type="button" @click="sendMessage">
-      <svg fill="lightgreen" view-box="0 0 20 22">
-        <path d="M0,0V22L19.05,11Z"></path>
-      </svg>
-    </button>
+    <div id="input">
+      <textarea placeholder="Введите запрос" v-model="qry"></textarea>
+      <button type="button" @click="sendMessage">
+        <svg fill="lightgreen" view-box="0 0 20 22">
+          <path d="M0,0V22L19.05,11Z"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
