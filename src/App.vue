@@ -11,6 +11,7 @@ export default {
     ChatFiller,
   },
   data: function () {
+    // Переменные компонента
     return {
       connection: null,
       hist: [],
