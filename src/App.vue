@@ -1,14 +1,12 @@
 <script>
 import DocList from "./components/DocList.vue";
 import CreateDoc from "./components/CreateDoc.vue";
-import ChatFiller from "./components/ChatFiller.vue";
 
 export default {
   name: "App",
   components: {
     DocList,
     CreateDoc,
-    ChatFiller,
   },
   data: function () {
     // Переменные компонента
@@ -61,7 +59,7 @@ export default {
 
 <template>
   <div id="btnbox">
-    <button type="button" @click="activeComp = 'ChatFiller'">Чат</button>
+    <button type="button" @click="activeComp = ''">Чат</button>
     <button type="button" @click="activeComp = 'DocList'">
       Список документов
     </button>
@@ -69,8 +67,8 @@ export default {
       Добавить документ
     </button>
   </div>
-  <component :is="activeComp" :du="defurl"></component>
-  <div v-if="activeComp === 'ChatFiller'">
+  <component v-if="activeComp" :is="activeComp" :du="defurl"></component>
+  <div v-else id="chat">
     <ul class="feed" id="msg-feed">
       <li v-for="msg in hist" :key="msg.timestamp">
         <p v-if="msg.role === 'user'" class="msg-usr">{{ msg.content }}</p>

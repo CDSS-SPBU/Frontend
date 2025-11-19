@@ -1,9 +1,11 @@
 * {
   margin: 0px;
 }
-html {
+html,
+body,
+#app,
+#chat {
   height: 100%;
-  width: 100%;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -67,9 +69,12 @@ textarea {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 }
 #input textarea {
-  width: calc(100% - 45px);
+  width: calc(100% - 40px);
 }
 #input button {
   border: none;
